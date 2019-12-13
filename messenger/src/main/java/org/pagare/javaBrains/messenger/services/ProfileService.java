@@ -1,6 +1,8 @@
 package org.pagare.javaBrains.messenger.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,19 @@ public class ProfileService {
 		return new ArrayList<ProfileModel>(profiles.values());
 	}
 	
+	
+	public List<ProfileModel> getAllProfilesByYear(int year){
+		List<ProfileModel>profilesByYear = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+		for(ProfileModel pro:profiles.values()) {
+			cal.setTime(pro.getCreated());
+			if(cal.get(Calendar.YEAR) == year) {
+				profilesByYear.add(pro);
+			}
+		}
+		return profilesByYear;
+		
+	}
 	public ProfileModel getProfile(String pName) {
 		return profiles.get(pName);
 	}

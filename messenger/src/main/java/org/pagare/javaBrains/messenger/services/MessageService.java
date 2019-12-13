@@ -1,6 +1,7 @@
 package org.pagare.javaBrains.messenger.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,20 @@ public class MessageService {
 	}
 	public  List<MessageModel> getAllMessages() {		
 		return new ArrayList<MessageModel>(messages.values());
+	}
+	
+	public List<MessageModel> getAllMessagesForTheYear(int year){
+		List<MessageModel> messageForYear = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+		for(MessageModel msg :messages.values()) {
+			cal.setTime(msg.getCreated());
+			if(cal.get(Calendar.YEAR) == year) {
+				messageForYear.add(msg);
+			}
+			
+		}
+		return messageForYear;
+		
 	}
 	
 	public  MessageModel getMessage(Integer id) {

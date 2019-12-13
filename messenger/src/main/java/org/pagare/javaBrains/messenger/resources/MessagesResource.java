@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.pagare.javaBrains.messenger.model.MessageModel;
@@ -21,7 +22,10 @@ public class MessagesResource {
 	MessageService messageService = new MessageService();
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public List<MessageModel> getMessages() {
+	public List<MessageModel> getMessages(@QueryParam("year") int year) {
+		if(year > 0) {
+			return messageService.getAllMessagesForTheYear(year);
+		}
 		return messageService.getAllMessages();
 	}
 	
@@ -55,5 +59,10 @@ public class MessagesResource {
 	@Path("/{messageId}")
 	public void deleteMessage(@PathParam("messageId")int id) {
 		 messageService.removeMessage(id);
+	}
+	
+	@Path("/{messageId}/comments")
+	public CommentsResource Test() {
+		return new CommentsResource();
 	}
 }
